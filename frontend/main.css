@@ -1,0 +1,104 @@
+@font-face {
+  font-family: 'Gotham Light';
+  src: url("./fonts/Gotham-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: 'Gotham Bold';
+  src: url("./fonts/Gotham-Bold.otf") format("opentype");
+}
+
+body {
+	font-family: 'Gotham Light';
+}
+
+h1 {
+	font-family: 'Gotham Bold';
+}
+
+#stream {
+	display: inline-block;
+}
+
+.msg-text {
+	padding: 6px;
+	border-radius: 5px;
+	width: 350px;
+	margin: 15px;
+}
+
+.msg-text:hover {
+	background-color: #3375c2;
+	color: #fff;
+	border: none;
+}
+
+#login {
+	float: right;
+	padding: 0.5em 1em;
+	background-color: #3375c2;
+	border: none;
+	color: white;
+	font-family: 'HelveticaNeue-Light';
+	font-weight: normal;
+	text-decoration: none;
+	border-radius: 5px;
+	font-size: 18px;
+	margin: -3px 40px 0px 0px;
+}
+
+#login:hover {
+	background-color: #6a9dd8;
+}
+
+#login img {
+	margin-right: 7px;
+	float: left;
+}
+
+#msgInput {
+	padding: 1em;
+	border: 1px solid #ccc;
+	height: 25px;
+	font-size: 14px;
+	font-family: 'HelveticaNeue-Light';
+	border-radius: 5px;
+}
+
+#tweet-submit {
+	padding: 0.5em 1em;
+	background-color: #3375c2;
+	border: none;
+	-webkit-transition: background-color 300ms;
+	transition: background-color 300ms;
+	color: #FFF;
+	font-family: 'HelveticaNeue-Light';
+	font-weight: normal;
+	font-size: 14px;
+	border-radius: 5px;
+}
+
+#tweet-submit:hover {
+	cursor: pointer;
+	background-color: #6a9dd8;
+}
+
+#here {
+	width: 50%;
+	margin-left: 15px;
+	float: right;
+}
+
+#user {
+	display: inline-block;
+	margin: 10px;
+}
+
+#user img {
+	border-radius: 5px;
+}
+
+#username {
+	margin: 15px 0px 0px 10px;
+	float: right;
+}

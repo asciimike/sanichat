@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <title>Sanitized Chat App</title>
+        <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+        <link rel="stylesheet" href="./main.css"></link>
+    </head>
+
+    <body>
+        <div id="stream">
+        	<h1>Clean Chat</h1>
+        	<input type="text" id="msgInput" placeholder="Don't be evil..."/>
+            <button type="submit" id="tweet-submit">Submit</button>
+            <div id="msg-box"></div>
+        </div>
+
+        <div id="here">
+            <h1>Who's here?!<a href="#" id="login"><img style="height:auto; width:auto; max-width:32px; max-height:32px;" src="twitter_white.png"/>Sign in With Twitter</a>
+            </h1>
+        </div>
+
+        <script>
+        //STEP 1: Create references
+        var ref = new Firebase('https://sanichat.firebaseio.com/');
+        var usersRef = ref.child('users');
+        var messagesRef = ref.child('messages');
+        var queueRef = ref.child('queue');
+
+        var currentUser = null;
+
+        //STEP 2: Authenticate on button click
+        $('#login').on('click', function () {
+            usersRef.authWithOAuthPopup('twitter', function (error, user) {
+                if (error) {
+                    console.log(error);
+                } else if (user) {
+                   usersRef.child(user.uid).set({username: user.twitter.username, pic: user.twitter.cachedUserProfile.profile_image_url_https});
+                }
+            });
+        });
+
+        //STEP 3: Handle auth state change
+        usersRef.onAuth(function(user){
+            if (user) {
+                currentUser = user;
+            } else {
+                currentUser = null;
+            }
+        });
+
+        //STEP 4: Add user image
+        usersRef.on('child_added', function(snapshot){
+            var user = snapshot.val();
+            $("<div id='user'><img src=" + user.pic + "/><span id='username'>@" + user.username + "</span></div>").appendTo($('#here'));
+        });
+
+        //STEP 5: Store messages in Firebase
+        $('#tweet-submit').on('click', function () {
+            if (currentUser !== null) {
+            var message = $('#msgInput').val();            
+            queueRef.push({user: currentUser.uid, username: currentUser.twitter.username, message: message, published: new Date().getTime()});
+            $('#msgInput').val('');
+          } else {
+            alert('You must login with Twitter to post!');
+          }
+        });
+
+        //STEP 6: Add messages to DOM in realtime
+        messagesRef.on('child_added', function(snapshot){
+            var message = snapshot.val();
+            $('#msg-box').append($("<div class='msg-text'>").text(message.username).append('<br/>').append($('<span/>').text(message.message)));
+        });
+        </script>
+    </body>
+</html>
