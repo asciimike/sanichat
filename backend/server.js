@@ -2,6 +2,7 @@ var Queue = require('firebase-queue'),
     Firebase = require('firebase'),
     Filter = require('bad-words');
 
+var filter = new Filter();
 var ref = new Firebase('https://sanichat.firebaseio.com/');
 ref.authWithCustomToken('<your-token-here>', function(err, authData){
     if (err) {
@@ -11,10 +12,7 @@ ref.authWithCustomToken('<your-token-here>', function(err, authData){
     }
 });
 var queue = new Queue(ref, function(data, progress, resolve, reject) {
-  var filter = new Filter();
-
   data.message = filter.clean(data.message);
-
   ref.child('messages').push(data, function(err){
     if (err) {
         reject(err);
