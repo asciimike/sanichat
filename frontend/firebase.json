@@ -1,5 +1,5 @@
 {
-  "firebase": "paconsulting",
+  "firebase": "sanichat",
   "public": ".",
   "ignore": [
     "firebase.json",
