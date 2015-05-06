@@ -1,0 +1,12 @@
+{
+  "name": "sanichat",
+  "description": "Chat Message Sanitization Backend for Firebase Chat Application",
+  "main": "server.js",
+  "author": "Mike McDonald <mcdonald@firebase.com>",
+  "homepage": "https://github.com/mcdonamp/sanichat",
+  "dependencies": {
+    "bad-words": "1.1.1",
+    "firebase": "2.2.4",
+    "firebase-queue": "latest"
+  }
+}
