@@ -1,0 +1,18 @@
+{
+    "rules": {
+        ".read" : false,
+        ".write" : false,
+        "queue" : {
+          ".write" : "auth!=null",
+          ".indexOn": "_state"
+        },
+        "messages" : {
+          ".read" : "auth!=null",
+          ".write" : "auth!=null"
+        },
+        "users" : {
+          ".read" : "auth!=null",
+          ".write" : "auth!=null"
+        }
+    }
+}
