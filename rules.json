@@ -1,18 +1,65 @@
 {
     "rules": {
-        ".read" : false,
-        ".write" : false,
-        "queue" : {
-          ".write" : "auth!=null",
-          ".indexOn": "_state"
+      ".read" : false,
+      ".write" : false,
+      "queue": {
+        ".read": false,
+        ".write": false,
+        ".indexOn": "_state",
+        "_state": {
+          ".validate": "newData.isString()"
         },
-        "messages" : {
-          ".read" : "auth!=null",
-          ".write" : "auth!=null"
+        "_state_changed": {
+          ".validate": "newData.isNumber()"
         },
-        "users" : {
-          ".read" : "auth!=null",
-          ".write" : "auth!=null"
+        "_owner": {
+          ".validate": "newData.isString()"
+        },
+        "_progress": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+        },
+        "_error_details": {
+          ".validate": "newData.exists() || !newData.exists()"
+        },
+        "$data": {
+          ".write": "auth!=null",
+          ".validate":"newData.hasChildren(['message', 'published', 'user', 'username']) && newData.child('message').isString() && newData.child('published').isNumber() && (newData.child('user').val() === auth.uid) && newData.child('username').isString()"
         }
+      },
+      "jobs" : {
+        ".read": false,
+        ".write": false,
+        "$jobID": {
+          "start_state": {
+            ".validate": "newData.isString() || !newData.exists()"
+          },
+          "in_progress_state": {
+            ".validate": "newData.isString()"
+          },
+          "finished_state": {
+            ".validate": "newData.isString() || !newData.exists()"
+          },
+          "error_state": {
+            ".validate": "newData.isString() || !newData.exists()"
+          },
+          "timeout": {
+            ".validate": "(newData.isNumber() && newData.val() > 0) || !newData.exists()"
+          },
+          "$other": {
+            ".validate": false
+          }
+        }
+      },
+      "messages" : {
+        ".read" : "auth!=null",
+        ".write" : false
+      },
+      "users" : {
+        "$userID": {
+          ".read": "auth.uid === $userID",
+          ".write": "auth.uid === $userID",
+          ".validate": "newData.hasChildren(['pic', 'username']) && newData.child('pic').isString() && newData.child('username').isString()"
+        }
+      }
     }
 }
