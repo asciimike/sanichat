@@ -2,7 +2,7 @@
     "rules": {
       ".read" : false,
       ".write" : false,
-      "queue": {
+      "tasks": {
         ".read": false,
         ".write": "auth!=null",
         ".indexOn": "_state",
