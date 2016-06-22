@@ -6,7 +6,7 @@ var filter = new Filter();
 var ref = new Firebase('https://sanichat.firebaseio.com/');
 ref.authWithCustomToken('<your-token-here>', function(err, authData){
     if (err) {
-      console.log("Login failed with error: ", error);
+      console.log("Login failed with error: ", err);
     } else {
       console.log("Authenticated successfully with payload: ", authData);
     }
