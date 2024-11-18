@@ -6,7 +6,7 @@
   "homepage": "https://github.com/mcdonamp/sanichat",
   "dependencies": {
     "bad-words": "1.1.1",
-    "firebase": "2.2.4",
+    "firebase": "10.9.0",
     "firebase-queue": "latest"
   }
 }
